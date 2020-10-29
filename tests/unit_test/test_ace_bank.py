@@ -118,11 +118,11 @@ class TestAceBank(object):
                str(lowbalance.value)
 
     @pytest.mark.parametrize('account_number, amount, currency, '
-                             'outgoing_account_number',
+                             'outgoing_acct_num',
                              [(200.00, 200, 1, 854.2),
                               (200, 'error', 'cad', 2)])
     def test_validate_variable(self, account_number, amount, currency,
-                               outgoing_account_number):
+                               outgoing_acct_num):
         ac = AceBank()
         # test when account_number
         with pytest.raises(ValueError) as wrongvariable:
@@ -143,8 +143,8 @@ class TestAceBank(object):
 
         # test when outgoing_account_number
         with pytest.raises(ValueError) as wrongvariable:
-            ac.validate_variable(outgoing_account_number=outgoing_account_number)
-        assert f"Account number {outgoing_account_number} must be string" \
+            ac.validate_variable(outgoing_account_number=outgoing_acct_num)
+        assert f"Account number {outgoing_acct_num} must be string" \
                in str(wrongvariable.value)
 
     def test_currency_converter(self):

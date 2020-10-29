@@ -15,7 +15,8 @@ class AceBank(object):
         except ValueError:
             print(F'We expect account should not exist so cont.')
 
-        self.account_details[customer_id][account_number] = {'balance': float(balance)}
+        self.account_details[customer_id][account_number] = \
+            {'balance': float(balance)}
 
         # print(self.account_details)
 
@@ -28,7 +29,9 @@ class AceBank(object):
         self.validate_variable(currency=currency)
         amount = self.currency_converter(amount, currency)
         self.validate_account(account_number, customer_id)
-        self.account_details[customer_id][account_number]['balance'] = self.account_details[customer_id][account_number]['balance'] + amount
+        self.account_details[customer_id][account_number]['balance'] = \
+            self.account_details[customer_id][account_number]['balance'] \
+            + amount
 
     def withdraw_funds(self, account_number, amount, currency, customer_id):
         self.validate_variable(account_number=account_number, amount=amount,
@@ -36,22 +39,28 @@ class AceBank(object):
         self.validate_account(account_number, customer_id)
         amount = self.currency_converter(amount, currency)
         self.account_details[customer_id][account_number]['balance'] = \
-            round(self.account_details[customer_id][account_number]['balance'] - amount, 2)
+            round(self.account_details[customer_id][account_number]
+                  ['balance'] - amount, 2)
 
-    def transfer_funds(self, receivers_account_number, senders_account_number, amount, receivers_customer_id, senders_customer_id):
-        self.validate_variable(account_number=receivers_account_number, amount=amount,
+    def transfer_funds(self, receivers_account_number, senders_account_number,
+                       amount, receivers_customer_id, senders_customer_id):
+        self.validate_variable(account_number=receivers_account_number,
+                               amount=amount,
                                outgoing_account_number=senders_account_number)
         self.validate_account(senders_account_number, senders_customer_id)
         self.validate_account(receivers_account_number, receivers_customer_id)
-        self.validate_balance(self.account_details[senders_customer_id][senders_account_number]['balance'], amount)
+        self.validate_balance(self.account_details[senders_customer_id]
+                              [senders_account_number]['balance'], amount)
 
         # remove amount from sender's account
         self.account_details[senders_customer_id][senders_account_number]['balance'] = \
-            self.account_details[senders_customer_id][senders_account_number]['balance'] - amount
+            self.account_details[senders_customer_id][senders_account_number]['balance'] \
+            - amount
 
         # send amount to new account
         self.account_details[receivers_customer_id][receivers_account_number]['balance'] = \
-            self.account_details[receivers_customer_id][receivers_account_number]['balance'] + amount
+            self.account_details[receivers_customer_id][receivers_account_number]['balance']\
+            + amount
 
     def validate_account(self, account_number, customer_id):
         # this validates that an account exist or not
