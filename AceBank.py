@@ -68,16 +68,15 @@ class AceBank(object):
         # if account dose not exist return false
         try:
             if self.account_details[customer_id][account_number]:
-                return True
+                print("Account exists")
         except KeyError:
             raise ValueError(f'Account does not exist')
 
     @staticmethod
     def validate_balance(account_balance, amount):
-        if account_balance >= amount:
-            return True
-        raise ValueError(f"Account balance of {account_balance} is "
-                         f"currently lesser than {amount}")
+        if account_balance < amount:
+            raise ValueError(f"Account balance of {account_balance} is "
+                             f"currently lesser than {amount}")
 
     @staticmethod
     def validate_variable(account_number=None, amount=None, currency=None,

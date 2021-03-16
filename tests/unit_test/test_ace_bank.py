@@ -102,14 +102,14 @@ class TestAceBank(object):
         assert "Account does not exist" in str(va.value)
 
         # test account that exist
-        assert mock_bank.validate_account('4000', 650)
+        mock_bank.validate_account('4000', 650)
 
     def test_validate_balance(self):
         # test when account_balance is greater than amount
-        assert AceBank().validate_balance(1000, 400)
+        AceBank().validate_balance(1000, 400)
 
         # test when account_balance is equal amount
-        assert AceBank().validate_balance(400, 400)
+        AceBank().validate_balance(400, 400)
 
         # test when account_balance is less than amount
         with pytest.raises(ValueError) as lowbalance:
