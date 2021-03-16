@@ -1,5 +1,5 @@
 import pytest
-from AceBank import AceBank
+from src.AceBank import AceBank
 
 
 @pytest.fixture

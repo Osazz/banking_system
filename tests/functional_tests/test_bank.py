@@ -2,7 +2,7 @@
 This is a functional test of the scenarios A and B
 """
 import pytest
-from AceBank import AceBank
+from src.AceBank import AceBank
 
 
 @pytest.fixture
