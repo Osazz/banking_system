@@ -43,7 +43,7 @@ jobs:
         pytest $(pwd)/tests/functional_tests
 
     - name: Build and Push Docker Image
-      uses: mr-smithers-excellent/docker-build-push@v5
+      uses: mr-smithers-excellent/docker-build-push@v4
       with:
         image: osagieayodeji/projects
         registry: docker.io
