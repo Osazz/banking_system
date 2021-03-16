@@ -2,7 +2,7 @@
 Unit test for AceBank class and all the functions in it
 """
 import pytest
-from AceBank import AceBank
+from src.AceBank import AceBank
 
 ACCEPTED_CURRENCY = ['usdollars', 'euros', 'caddollars']
 
