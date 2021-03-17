@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 COPY src/ .
 
 # command to run on container start
-RUN python ./AceBank.py
+CMD [ "python", "./AceBank.py" ]
