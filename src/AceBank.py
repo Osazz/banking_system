@@ -93,16 +93,16 @@ class AceBank(object):
     def validate_variable(account_number=None, amount=None, currency=None,
                           outgoing_account_number=None):
         if account_number and not isinstance(account_number, str):
-            raise ValueError(f"Account number {account_number} must be string")
+            raise ValueError(f'{"Account number {account_number} must be string"}')
         if amount and not isinstance(amount, float):
-            raise ValueError(f"Amount must be of type float")
+            raise ValueError(f'{"Amount must be of type float"}')
         if currency and currency not in ACCEPTED_CURRENCY:
-            raise ValueError(f"Currency {currency} is not recognized. Should be"
-                             f" one of {ACCEPTED_CURRENCY}")
+            raise ValueError(f'{"Currency {currency} is not recognized. Should be"}'
+                             f'{"one of {ACCEPTED_CURRENCY}"}')
         if outgoing_account_number and not isinstance(outgoing_account_number,
                                                       str):
-            raise ValueError(f"Account number {outgoing_account_number}"
-                             f" must be string")
+            raise ValueError(f'{"Account number {outgoing_account_number}"}'
+                             f'{"must be string"}')
 
     @staticmethod
     def currency_converter(amount, currency):
