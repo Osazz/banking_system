@@ -6,7 +6,7 @@
 # run tests in the program
 #################################################
 
-name: Remote command execution
+name: Image Build and Test
 
 on: [push]
 
