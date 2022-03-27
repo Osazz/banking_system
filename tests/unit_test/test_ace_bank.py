@@ -156,5 +156,5 @@ class TestAceBank(object):
         assert ac.currency_converter(100, 'euros') == 200
 
 
-if __name__ == '__main__':
-    pytest.main()
+# if __name__ == '__main__':
+#     pytest.main()
