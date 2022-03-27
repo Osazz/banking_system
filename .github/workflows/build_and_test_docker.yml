@@ -1,0 +1,51 @@
+#################################################
+# Build docker image
+#  Ssh to a remote server
+# setup docker
+# pull the latest image
+# run tests in the program
+#################################################
+
+name: Image Build and Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and Push Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        id: build-docker
+        with:
+          image: osagieayodeji/acebank
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+#      - name: executing remote ssh commands using password
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USERNAME }}
+#          key: ${{ secrets.KEY }}
+#          port: ${{ secrets.PORT }}
+#          script: |
+#            curl -fsSL https://get.docker.com -o get-docker.sh
+#            sudo sh get-docker.sh
+#            sudo usermod -aG docker ubuntu
+#
+#      - name: executing remote ssh commands using password
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USERNAME }}
+#          key: ${{ secrets.KEY }}
+#          port: ${{ secrets.PORT }}
+#          script: |
+#            echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username=${{ secrets.DOCKER_USERNAME }} --password-stdin
+#            docker pull osagieayodeji/acebank:${{ steps.build-docker.outputs.tags }}
+#            docker run osagieayodeji/acebank:${{ steps.build-docker.outputs.tags }}

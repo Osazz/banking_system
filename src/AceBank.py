@@ -1,24 +1,35 @@
+# Account simulation
+
+import os
+import sys
+import logging
 import collections
+
 ACCEPTED_CURRENCY = ['usdollars', 'euros', 'caddollars']
+
+logging.basicConfig(
+    filename="artifactory.logs",
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S %p",
+)
 
 
 class AceBank(object):
     def __init__(self):
         # keeping account info in a list
         self.account_details = collections.defaultdict(dict)
+        self.log = logging.getLogger(os.path.basename(sys.argv[0]))
 
     def create_account(self, account_number, balance, customer_id):
         # This creates new customer account and add info to account details
         try:
             if self.validate_account(account_number, customer_id):
-                raise Exception(f'Account does not exist')
+                raise Exception(f"Account does not exist")
         except ValueError:
-            print(F'We expect account should not exist so cont.')
-
+            self.log.warning(F"We expect account should not exist so cont.")
         self.account_details[customer_id][account_number] = \
             {'balance': float(balance)}
-
-        # print(self.account_details)
 
     def get_balance(self, account_number, customer_id):
         self.validate_account(account_number, customer_id)
@@ -68,9 +79,9 @@ class AceBank(object):
         # if account dose not exist return false
         try:
             if self.account_details[customer_id][account_number]:
-                print("Account exists")
+                self.log.info("Account exists")
         except KeyError:
-            raise ValueError(f'Account does not exist')
+            raise ValueError(f"Account does not exist")
 
     @staticmethod
     def validate_balance(account_balance, amount):
@@ -101,39 +112,3 @@ class AceBank(object):
         if currency.lower() == 'euros':
             amount = float(amount * 2.00)
         return amount
-
-
-if __name__ == '__main__':
-    # initiate AceBank with customer id 234
-    ab = AceBank()
-    # setup account for customer 234
-    ab.create_account(account_number='0808', balance=1000.00, customer_id=234)
-    # deposit money for account 0808
-    ab.deposit_fund('0808', 500.00, 'usdollars', 234)
-
-    # withdraw from account 0808
-    ab.withdraw_funds('0808', 100.00, 'caddollars', 234)
-
-    # get balance from account 0808
-    balance = ab.get_balance('0808', 234)
-    print(f"Balance of account 0808 after last transaction is {balance}")
-
-    # initiate AceBank with customer id 756
-    ab = AceBank()
-    # setup accounts for customer 756
-    ab.create_account(account_number='0903', balance=100.00, customer_id=756)
-    ab.create_account(account_number='0875', balance=6000.00, customer_id=756)
-
-    # withdraw from account 0875
-    ab.withdraw_funds('0875', 700.00, 'usdollars', 756)
-    # deposit fund to 0903
-    ab.deposit_fund('0903', 2500.00, 'euros', 756)
-
-    # transfer fund from 0875 to 0903
-    ab.transfer_funds('0875', '0903', 1100.00, 756, 756)
-
-    # get balance from account 0808
-    balance_0875 = ab.get_balance('0875', 756)
-    balance_0903 = ab.get_balance('0903', 756)
-    print(f"Balance of account 0875 after last transaction is {balance_0875}")
-    print(f"Balance of account 0903 after last transaction is {balance_0903}")

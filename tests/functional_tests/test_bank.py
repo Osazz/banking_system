@@ -56,5 +56,5 @@ class TestCases(object):
         assert balance_0903 == 6200.0
 
 
-if __name__ == '__main__':
-    pytest.main()
+# if __name__ == '__main__':
+#     pytest.main()
