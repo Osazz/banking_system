@@ -8,8 +8,7 @@ Implement an object-oriented banking system using Python 3 that will track accou
 - script.py: These runs and integration simulation of the Bank
 - .github/workflows/unit_test.yml: GitHub action that runs our unit test on python versions: 3.7, 3.8 and 3.9
 - .github/workflows/functional_test.yml: GitHub action that runs our functional test on python version 3.8
-- .github/workflows/build_docker.yml: GitHub action that packages our code into docker image and push to defined docker repo
-- .github/workflows/remote_execution.yml: GitHub action that brings down our docker image, create a container from it and  run our script.py
+- .github/workflows/build_docker.yml: GitHub action that packages our code into docker image and push to defined docker repo, brings down our docker image, create a container from it and  run our script.py
 
 ## How to Run Code
 ```shell
