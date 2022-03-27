@@ -1,24 +1,36 @@
+# Account simulation
+
+import os
+import sys
+import logging
 import collections
+
 ACCEPTED_CURRENCY = ['usdollars', 'euros', 'caddollars']
+
+logging.basicConfig(
+    filename="artifactory.logs",
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S %p",
+)
 
 
 class AceBank(object):
     def __init__(self):
         # keeping account info in a list
         self.account_details = collections.defaultdict(dict)
+        self.log = logging.getLogger(os.path.basename(sys.argv[0]))
 
     def create_account(self, account_number, balance, customer_id):
         # This creates new customer account and add info to account details
         try:
             if self.validate_account(account_number, customer_id):
-                raise Exception(f'Account does not exist')
+                raise Exception(f'{"Account does not exist"}')
         except ValueError:
-            print(F'We expect account should not exist so cont.')
+            self.log.warning(F'{"We expect account should not exist so cont."}')
 
         self.account_details[customer_id][account_number] = \
             {'balance': float(balance)}
-
-        # print(self.account_details)
 
     def get_balance(self, account_number, customer_id):
         self.validate_account(account_number, customer_id)
@@ -68,9 +80,9 @@ class AceBank(object):
         # if account dose not exist return false
         try:
             if self.account_details[customer_id][account_number]:
-                print("Account exists")
+                self.log.info("Account exists")
         except KeyError:
-            raise ValueError(f'Account does not exist')
+            raise ValueError(f'{"Account does not exist"}')
 
     @staticmethod
     def validate_balance(account_balance, amount):
@@ -82,16 +94,16 @@ class AceBank(object):
     def validate_variable(account_number=None, amount=None, currency=None,
                           outgoing_account_number=None):
         if account_number and not isinstance(account_number, str):
-            raise ValueError(f"Account number {account_number} must be string")
+            raise ValueError(f'{"Account number {account_number} must be string"}')
         if amount and not isinstance(amount, float):
-            raise ValueError(f"Amount must be of type float")
+            raise ValueError(f'{"Amount must be of type float"}')
         if currency and currency not in ACCEPTED_CURRENCY:
-            raise ValueError(f"Currency {currency} is not recognized. Should be"
-                             f" one of {ACCEPTED_CURRENCY}")
+            raise ValueError(f'{"Currency {currency} is not recognized. Should be"}'
+                             f'{"one of {ACCEPTED_CURRENCY}"}')
         if outgoing_account_number and not isinstance(outgoing_account_number,
                                                       str):
-            raise ValueError(f"Account number {outgoing_account_number}"
-                             f" must be string")
+            raise ValueError(f'{"Account number {outgoing_account_number}"}'
+                             f'{"must be string"}')
 
     @staticmethod
     def currency_converter(amount, currency):
