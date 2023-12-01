@@ -1,4 +1,6 @@
 # Testing AceBank Class in src/AceBank
+import logging
+logging.basicConfig(filename='script.log', encoding='utf-8', level=logging.DEBUG)
 
 from src.AceBank import AceBank
 
@@ -15,7 +17,7 @@ if __name__ == '__main__':
 
     # get balance from account 0808
     balance = ab.get_balance('0808', 234)
-    print(f"Balance of account 0808 after last transaction is {balance}")
+    logging.info(f"Balance of account 0808 after last transaction is {balance}")
 
     # initiate AceBank with customer id 756
     ab = AceBank()
@@ -34,5 +36,5 @@ if __name__ == '__main__':
     # get balance from account 0808
     balance_0875 = ab.get_balance('0875', 756)
     balance_0903 = ab.get_balance('0903', 756)
-    print(f"Balance of account 0875 after last transaction is {balance_0875}")
-    print(f"Balance of account 0903 after last transaction is {balance_0903}")
+    logging.info(f"Balance of account 0875 after last transaction is {balance_0875}")
+    logging.info(f"Balance of account 0903 after last transaction is {balance_0903}")
